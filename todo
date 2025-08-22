@@ -1,0 +1,33 @@
+# Coding Challenge: Digital Assistant Service – Todo
+
+Coding Challenge: Digital Assistant Service
+
+Your task is to create a service that can be deployed locally or on a cloud platform of your choice. The service should be accessible via an HTTP API. The goal of this service is to allow the user to perform two tasks:
+
+1. Define a name and text response string for a digital assistant.
+2. Send a text message to the named assistant and receive the defined string.
+
+Constraints
+
+1. Technology Restrictions: You should use Java Spring Boot, and any other technology of your liking.
+2. Time Investment: We recommend you spend about 2-4 hours on this task. Please note that the quality of the solution is more important than completeness.
+
+Please provide the following:
+
+1. Source Code: Please provide the source code for your solution. Include all the necessary files and clear instructions on how to run your service.
+2. Presentation: Please prepare a 5-minute presentation to explain your solution during the interview. The presentation should cover how your service works, the technologies you chose, and why you made those choices.
+
+## 1. Tasks
+
+- Dockerfile aufsetzen
+- Projekt aufsetzen (Sprint boot)
+- Sample Endpunkt erstellen und ansprechen
+- Test für Assistenten erstellen (name setzen) (F1)
+- Implement F1
+- Test für Response Text erstellen (F2)
+- Implement F2
+- Test für send text message to assistant (F3)
+- Implement F3
+- Test get expected respones see F2 (F4)
+- Implement F4
+- Finalize Readme
