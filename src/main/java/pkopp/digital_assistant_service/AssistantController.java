@@ -2,6 +2,8 @@ package pkopp.digital_assistant_service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +34,19 @@ public class AssistantController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<AssistantResponse> getAssistant(@PathVariable String name) {
+        try {
+            Assistant assistant = assistantService.getAssistant(name);
+            if (assistant == null) {
+                return ResponseEntity.notFound().build(); // 404
+            }
+            String aName = assistant.getName();
+            return ResponseEntity.ok(new AssistantResponse(aName)); // 200
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build(); // 400
+        }
+    }
+
 }
