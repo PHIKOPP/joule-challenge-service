@@ -19,9 +19,9 @@ Please provide the following:
 
 ## 1. Tasks
 
-- Dockerfile aufsetzen
-- Projekt aufsetzen (Sprint boot)
-- Sample Endpunkt erstellen und ansprechen
+- (Done) Dockerfile aufsetzen
+- (Done) Projekt aufsetzen (Sprint boot)
+- (Done) Sample Endpunkt erstellen und ansprechen
 - Test für Assistenten erstellen (name setzen) (F1)
 - Implement F1
 - Test für Response Text erstellen (F2)
