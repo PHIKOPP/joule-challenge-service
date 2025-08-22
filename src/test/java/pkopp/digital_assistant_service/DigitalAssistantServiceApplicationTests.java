@@ -6,11 +6,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import org.springframework.http.MediaType;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,8 +24,6 @@ class DigitalAssistantServiceApplicationTests {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	private final AssistantService service = new AssistantService();
 
 	@Test
 	void helloEndpoint_returns_200() throws Exception {
@@ -38,29 +38,16 @@ class DigitalAssistantServiceApplicationTests {
 	}
 
 	@Test
-	void nameAssitant_returns201_andBody() throws Exception {
-		mockMvc.perform(get("/api/v1/assistant/name?name=TestName"))
+	void createAssistant_withValidName_returns201() throws Exception {
+		String body = """
+				{ "name": "joule" }
+				""";
+
+		mockMvc.perform(post("/api/v1/assistant")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(body))
 				.andExpect(status().isCreated())
-				.andExpect(content().string("Assistant name set to: TestName"));
-	}
-
-	@Test
-	void createAssistant_withValidName_returnsAssistant() {
-		Assistant a = service.createAssistant("joule");
-		String name = a.getName();
-		assertEquals(name, "joule");
-	}
-
-	@Test
-	void createAssistant_withEmptyName_throwsException() {
-		assertThrows(IllegalArgumentException.class,
-				() -> service.createAssistant(" "));
-	}
-
-	@Test
-	void createAssistant_withNullName_throwsException() {
-		assertThrows(IllegalArgumentException.class,
-				() -> service.createAssistant(null));
+				.andExpect(jsonPath("$.assistant").value("joule"));
 	}
 
 }
