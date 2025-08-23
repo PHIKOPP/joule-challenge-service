@@ -111,7 +111,7 @@ curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: applicat
 **Philipp**
 
 ```bash
-curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"philipp\", \"response\": \"Hello, I am Philipp!\" }"`
+curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"philipp\", \"response\": \"Hello, I am Philipp!\" }"
 ```
 
 ---
