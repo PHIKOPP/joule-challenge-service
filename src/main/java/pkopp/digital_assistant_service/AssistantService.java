@@ -9,14 +9,21 @@ import org.springframework.stereotype.Service;
 public class AssistantService {
     private static final Map<String, Assistant> assistants = new ConcurrentHashMap<>();
 
-    public Assistant createAssistant(String name) {
+    public Assistant createAssistant(String name, String response) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
         if (name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+        if (response.trim().isEmpty()) {
+            throw new IllegalArgumentException("Response cannot be empty");
+        }
         Assistant a = new Assistant(name);
+        a.setResponse(response);
         assistants.put(name, a);
         return a;
     }

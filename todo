@@ -22,10 +22,12 @@ Please provide the following:
 - (Done) Dockerfile aufsetzen
 - (Done) Projekt aufsetzen (Sprint boot)
 - (Done) Sample Endpunkt erstellen und ansprechen
-- Test für Assistenten erstellen (name setzen) (F1)
-- Implement F1
-- Test für Response Text erstellen (F2)
-- Implement F2
+- (Done) Test für Assistenten erstellen (name setzen) (F1)
+- (Done) Implement F1
+- (Done) Test für Response Text erstellen (F2)
+- (Done) Implement F2
+- (Done) Test Create Assistant with ResponseText (both in one API!) (F12)
+- (Done) Implement F12
 - Test für send text message to assistant (F3)
 - Implement F3
 - Test get expected respones see F2 (F4)

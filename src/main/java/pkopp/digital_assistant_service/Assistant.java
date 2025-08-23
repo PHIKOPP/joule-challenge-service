@@ -2,6 +2,7 @@ package pkopp.digital_assistant_service;
 
 public class Assistant {
     private String name;
+    private String response;
 
     public Assistant(String name) {
         this.name = name;
@@ -14,5 +15,13 @@ public class Assistant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setResponse(String reply) {
+        this.response = reply;
+    }
+
+    public String getResponse() {
+        return response;
     }
 }

@@ -18,18 +18,22 @@ public class AssistantController {
         this.assistantService = assistantService;
     }
 
-    public record CreateAssistantRequest(String name) {
+    public record CreateAssistantRequest(String name, String response) {
     }
 
-    public record AssistantResponse(String assistant) {
+    public record UpdateTextRequest(String response) {
+    }
+
+    public record AssistantResponse(String name, String response) {
     }
 
     @PostMapping
     public ResponseEntity<AssistantResponse> createAssistant(@RequestBody CreateAssistantRequest request) {
         try {
-            Assistant assistant = assistantService.createAssistant(request.name());
+            Assistant assistant = assistantService.createAssistant(request.name(), request.response());
             String name = assistant.getName();
-            return new ResponseEntity<>(new AssistantResponse(name), HttpStatus.CREATED);
+            String response = assistant.getResponse();
+            return new ResponseEntity<>(new AssistantResponse(name, response), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -43,10 +47,10 @@ public class AssistantController {
                 return ResponseEntity.notFound().build(); // 404
             }
             String aName = assistant.getName();
-            return ResponseEntity.ok(new AssistantResponse(aName)); // 200
+            String response = assistant.getResponse();
+            return ResponseEntity.ok(new AssistantResponse(aName, response)); // 200
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build(); // 400
         }
     }
-
 }

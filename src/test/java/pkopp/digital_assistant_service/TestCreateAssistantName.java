@@ -9,14 +9,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CreateAssistantName {
+class TestCreateAssistantName {
 
     @Test
     void contextLoads() {
@@ -27,9 +25,13 @@ class CreateAssistantName {
 
     private final AssistantService service = new AssistantService();
 
+    // ----------------------------------------------
+    // Testing local Controller
+    // ----------------------------------------------
+
     @Test
     void createAssistant_withValidName_returnsAssistant() {
-        Assistant a = service.createAssistant("joule");
+        Assistant a = service.createAssistant("joule", "Hello, I am Joule!");
         String name = a.getName();
         assertEquals(name, "joule");
     }
@@ -37,40 +39,46 @@ class CreateAssistantName {
     @Test
     void createAssistant_withEmptyName_throwsException() {
         assertThrows(IllegalArgumentException.class,
-                () -> service.createAssistant(" "));
+                () -> service.createAssistant(" ", "Hello, I am Joule!"));
     }
 
     @Test
     void createAssistant_withNullName_throwsException() {
         assertThrows(IllegalArgumentException.class,
-                () -> service.createAssistant(null));
+                () -> service.createAssistant(null, "Hello, I am Joule!"));
     }
 
     @Test
     void createAssistant_withLongName_works() {
         String longName = "a".repeat(5000);
-        Assistant a = service.createAssistant(longName);
+        Assistant a = service.createAssistant(longName, "Hello, I am " + longName + "!");
         String name = a.getName();
         assertEquals(name.length(), 5000);
     }
 
+    // ----------------------------------------------
+    // Testing API
+    // ----------------------------------------------
+
     @Test
     void createAssistant_withValidName_returns201() throws Exception {
         String body = """
-                { "name": "joule" }
+                { "name": "joule" ,
+                "response": "Hello, I am Joule!" }
                 """;
 
         mockMvc.perform(post("/api/v1/assistant")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.assistant").value("joule"));
+                .andExpect(jsonPath("$.name").value("joule"));
     }
 
     @Test
     void createAssistant_withEmptyName_returns400() throws Exception {
         String body = """
-                { "name": " " }
+                { "name": " " ,
+                "response": "Hello, I am Joule!" }
                 """;
 
         mockMvc.perform(post("/api/v1/assistant")
