@@ -1,10 +1,6 @@
 # joule-challenge-service
 
-A simple Spring Boot service for defining digital assistants with fixed response messages. Supports creating named assistants and sending them messages via HTTP API. Built as a coding challenge solution
-
-docker rm -f dasvc
-docker build -t digital-assistant-service:local .
-docker run -p 8080:8080 --name dasvc digital-assistant-service:local
+A simple Spring Boot service for defining digital assistants with fixed response messages. Supports creating named assistants and sending them messages via HTTP API. Built for coding challenge.
 
 # How to start (Docker & Local)
 
@@ -152,8 +148,8 @@ curl -X POST "http://localhost:8080/api/v1/assistant/philipp/message" -H "Conten
 
 **More Tests and Use cases**
 
-For more tests see. Included are controller-tests, api-tests with happy path, edge, and failure cases. `src\test\java\pkopp\digital_assistant_service`
-
+For more tests see `src\test\java\pkopp\digital_assistant_service`
+Included are controller-tests, api-tests with happy path, edge, and failure cases. 
 # Design Decisions
 
 1. Technology Stack
