@@ -32,5 +32,4 @@ class HelloWorldTest {
 		mockMvc.perform(get("/api/v1/hello"))
 				.andExpect(content().string("Hello, World!"));
 	}
-
 }

@@ -6,10 +6,6 @@ docker rm -f dasvc
 docker build -t digital-assistant-service:local .
 docker run -p 8080:8080 --name dasvc digital-assistant-service:local
 
----
-
----
-
 # How to start (Docker & Local)
 
 ## 🐳 Docker
@@ -46,10 +42,6 @@ docker rm joule-service
   - ` scoop install openjdk21`
   - `java -version`
 - Start project with `./mvnw spring-boot:run`
-
----
-
----
 
 # API Overview
 
@@ -110,43 +102,57 @@ Send a message to the assistant and get the response.
 }
 ```
 
----
-
----
-
 # Example for testing
 
 ### 1. Creating 2 Assistants
 
 **Joule**
-`curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"joule\", \"response\": \"Hello, I am Joule!\" }"`
+
+```bash
+curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"joule\", \"response\": \"Hello, I am Joule!\" }"
+```
 
 **Philipp**
-`curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"philipp\", \"response\": \"Hello, I am Philipp!\" }"`
+
+```bash
+curl -X POST "http://localhost:8080/api/v1/assistant" -H "Content-Type: application/json" -d "{ \"name\": \"philipp\", \"response\": \"Hello, I am Philipp!\" }"`
+```
 
 ---
 
 ### 2. Check assistants exist
 
 **Joule**
-`curl -X GET "http://localhost:8080/api/v1/assistant/joule"`
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/assistant/joule"
+```
 
 **Philipp**
-`curl -X GET "http://localhost:8080/api/v1/assistant/Philipp"`
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/assistant/Philipp"
+```
 
 ---
 
 ### 3. Send messages
 
 **Joule**
-`curl -X POST "http://localhost:8080/api/v1/assistant/joule/message" -H "Content-Type: application/json" -d "{ \"message\": \"Hi Joule\" }"`
+
+```bash
+curl -X POST "http://localhost:8080/api/v1/assistant/joule/message" -H "Content-Type: application/json" -d "{ \"message\": \"Hi Joule\" }"
+```
 
 **Philipp**
-`curl -X POST "http://localhost:8080/api/v1/assistant/philipp/message" -H "Content-Type: application/json" -d "{ \"message\": \"Hi Phil\" }"`
 
----
+```bash
+curl -X POST "http://localhost:8080/api/v1/assistant/philipp/message" -H "Content-Type: application/json" -d "{ \"message\": \"Hi Phil\" }"
+```
 
----
+**More Tests and Use cases**
+
+For more tests see. Included are controller-tests, api-tests with happy path, edge, and failure cases. `src\test\java\pkopp\digital_assistant_service`
 
 # Design Decisions
 
