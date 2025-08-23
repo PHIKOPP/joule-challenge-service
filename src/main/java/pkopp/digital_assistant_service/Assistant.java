@@ -24,4 +24,13 @@ public class Assistant {
     public String getResponse() {
         return response;
     }
+
+    public String replyTo(String message) {
+        if (message == null || message.trim().isEmpty()) {
+            throw new IllegalArgumentException("Message cannot be null or empty");
+        }
+        // Here you would implement the logic to process and interact the message
+        // Not needed for challenge --> just return with response
+        return response;
+    }
 }

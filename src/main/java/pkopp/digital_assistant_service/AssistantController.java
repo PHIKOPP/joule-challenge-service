@@ -1,5 +1,6 @@
 package pkopp.digital_assistant_service;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class AssistantController {
     public record AssistantResponse(String name, String response) {
     }
 
+    public record SendMessageRequest(String message) {
+    }
+
     @PostMapping
     public ResponseEntity<AssistantResponse> createAssistant(@RequestBody CreateAssistantRequest request) {
         try {
@@ -51,6 +55,20 @@ public class AssistantController {
             return ResponseEntity.ok(new AssistantResponse(aName, response)); // 200
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build(); // 400
+        }
+    }
+
+    @PostMapping("/{name}/message")
+    public ResponseEntity<String> sendMessage(@PathVariable String name, @RequestBody SendMessageRequest request) {
+        try {
+            Assistant assistant = assistantService.getAssistant(name);
+            if (assistant == null) {
+                return ResponseEntity.notFound().build();
+            }
+            String response = assistant.replyTo(request.message());
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }

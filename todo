@@ -28,8 +28,8 @@ Please provide the following:
 - (Done) Implement F2
 - (Done) Test Create Assistant with ResponseText (both in one API!) (F12)
 - (Done) Implement F12
-- Test für send text message to assistant (F3)
-- Implement F3
-- Test get expected respones see F2 (F4)
-- Implement F4
+- (Done) Test für send text message to assistant (F3)
+- (Done) Implement F3
+- (Done) Test get expected respones see F2 (F4)
+- (Done) Implement F4
 - Finalize Readme
