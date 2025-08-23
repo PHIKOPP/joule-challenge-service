@@ -18,15 +18,15 @@ public class AssistantController {
         this.assistantService = assistantService;
     }
 
+    // Create new Assistant
     public record CreateAssistantRequest(String name, String response) {
     }
 
-    public record UpdateTextRequest(String response) {
-    }
-
+    // Get Assistant with name and response
     public record AssistantResponse(String name, String response) {
     }
 
+    // User sends message to assistant
     public record SendMessageRequest(String message) {
     }
 
@@ -38,9 +38,9 @@ public class AssistantController {
             String response = assistant.getResponse();
             return new ResponseEntity<>(new AssistantResponse(name, response), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409
         }
     }
 
@@ -64,12 +64,12 @@ public class AssistantController {
         try {
             Assistant assistant = assistantService.getAssistant(name);
             if (assistant == null) {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.notFound().build(); // 404
             }
             String response = assistant.respondTo(request.message());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build(); // 400
         }
     }
 }

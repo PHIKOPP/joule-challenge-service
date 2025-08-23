@@ -36,7 +36,7 @@ public class AssistantService {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name darf nicht leer sein");
         }
-        return assistants.get(name.toLowerCase()); // gibt null zurück, wenn nicht vorhanden
+        return assistants.get(name.toLowerCase());
     }
 
 }
