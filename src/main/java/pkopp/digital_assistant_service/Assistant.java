@@ -17,19 +17,19 @@ public class Assistant {
         this.name = name;
     }
 
-    public void setResponse(String reply) {
-        this.response = reply;
+    public void setResponse(String reseponse) {
+        this.response = reseponse;
     }
 
     public String getResponse() {
         return response;
     }
 
-    public String replyTo(String message) {
+    public String respondTo(String message) {
         if (message == null || message.trim().isEmpty()) {
             throw new IllegalArgumentException("Message cannot be null or empty");
         }
-        // Here you would implement the logic to process and interact the message
+        // Here would implement the logic to process and interact the message
         // Not needed for challenge --> just return with response
         return response;
     }

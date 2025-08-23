@@ -99,4 +99,44 @@ class TestCreateAssistantName {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void createAssistant_duplicateSameCase_returns409() throws Exception {
+        String body = """
+                { "name": "Joule" ,
+                "response": "Hello, I am Joule!" }
+                """;
+
+        mockMvc.perform(post("/api/v1/assistant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(post("/api/v1/assistant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    void createAssistant_duplicateCaseInsensitive_returns409() throws Exception {
+        String body = """
+                { "name": "Joule" ,
+                "response": "Hello, I am Joule!" }
+                """;
+        String body1 = """
+                { "name": "joUlE" ,
+                "response": "Hello, I am joUlE!" }
+                """;
+
+        mockMvc.perform(post("/api/v1/assistant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(post("/api/v1/assistant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body1))
+                .andExpect(status().isConflict());
+    }
+
 }

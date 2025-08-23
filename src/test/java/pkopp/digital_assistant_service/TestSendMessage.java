@@ -44,7 +44,7 @@ class TestSendMessage {
     void sendMessage_withValidInput_returnsResponse() {
         Assistant a = service.createAssistant("joule", "Hello, I am Joule!");
         String userMessage = "Hello, I am Philipp.";
-        String response = a.replyTo(userMessage);
+        String response = a.respondTo(userMessage);
         assertEquals(response, "Hello, I am Joule!");
     }
 
@@ -53,7 +53,7 @@ class TestSendMessage {
     void sendMessage_withLongInput_returnsResponse() {
         Assistant a = service.createAssistant("joule", "Hello, I am Joule!");
         String userMessage = "Hi".repeat(5000);
-        String response = a.replyTo(userMessage);
+        String response = a.respondTo(userMessage);
         assertEquals(response, "Hello, I am Joule!");
     }
 
@@ -62,7 +62,7 @@ class TestSendMessage {
     void sendMessage_withNullInput_returnsResponse() {
         Assistant a = service.createAssistant("joule", "Hello, I am Joule!");
         String userMessage = null;
-        assertThrows(IllegalArgumentException.class, () -> a.replyTo(userMessage));
+        assertThrows(IllegalArgumentException.class, () -> a.respondTo(userMessage));
     }
 
     // empty message
@@ -70,7 +70,7 @@ class TestSendMessage {
     void sendMessage_withEmptyInput_returnsResponse() {
         Assistant a = service.createAssistant("joule", "Hello, I am Joule!");
         String userMessage = " ";
-        assertThrows(IllegalArgumentException.class, () -> a.replyTo(userMessage));
+        assertThrows(IllegalArgumentException.class, () -> a.respondTo(userMessage));
     }
 
     // ----------------------------------------------
@@ -141,7 +141,7 @@ class TestSendMessage {
                 .andExpect(status().isBadRequest());
     }
 
-    // TODO NO ASSISTANT AVAILABLE/CREATED
+    // no assistant found with that name
     @Test
     void sendMessage_withNoAssistant_returns404() throws Exception {
         mockMvc.perform(post("/api/v1/assistant/unknown/message")
@@ -149,5 +149,4 @@ class TestSendMessage {
                 .content("{\"message\":\"Hi\"}"))
                 .andExpect(status().isNotFound());
     }
-
 }

@@ -16,11 +16,15 @@ public class AssistantService {
         if (name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
+        name = name.toLowerCase();
         if (response == null) {
             throw new IllegalArgumentException("Response cannot be null");
         }
         if (response.trim().isEmpty()) {
             throw new IllegalArgumentException("Response cannot be empty");
+        }
+        if (assistants.containsKey(name)) {
+            throw new IllegalStateException("Assistant already exists");
         }
         Assistant a = new Assistant(name);
         a.setResponse(response);

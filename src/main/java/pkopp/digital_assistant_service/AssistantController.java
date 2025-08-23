@@ -1,6 +1,5 @@
 package pkopp.digital_assistant_service;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +39,8 @@ public class AssistantController {
             return new ResponseEntity<>(new AssistantResponse(name, response), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
@@ -65,7 +66,7 @@ public class AssistantController {
             if (assistant == null) {
                 return ResponseEntity.notFound().build();
             }
-            String response = assistant.replyTo(request.message());
+            String response = assistant.respondTo(request.message());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
